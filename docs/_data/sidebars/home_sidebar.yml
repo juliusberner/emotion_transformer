@@ -7,24 +7,18 @@ entries:
 - folders:
   - folderitems:
     - output: web,pdf
-      title: Export to modules
-      url: /export.html
+      title: Overview
+      url: /
     - output: web,pdf
-      title: Convert to html
-      url: /export2html.html
+      title: Dataloader for the SemEval Challenge
+      url: /dataloader
     - output: web,pdf
-      title: Show doc
-      url: /showdoc.html
+      title: Transformer Model for the SemEval Challenge
+      url: /model
     - output: web,pdf
-      title: Test functions
-      url: /test.html
-    - output: web,pdf
-      title: Core functions
-      url: /core.html
-    - output: web,pdf
-      title: Command line functions
-      url: /cli.html
+      title: PyTorch Lightning module for the SemEval Challenge
+      url: /lightning
     output: web
-    title: Notebook
+    title: emotion_transformer
   output: web
   title: Sidebar

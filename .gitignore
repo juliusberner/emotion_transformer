@@ -9,6 +9,7 @@
 _tmp*
 tmp*
 tags
+logs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

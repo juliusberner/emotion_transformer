@@ -1,0 +1,2 @@
+transformers == 2.3.0
+pytorch_lightning == 0.5.3.2

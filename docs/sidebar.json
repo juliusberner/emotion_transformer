@@ -1,10 +1,8 @@
 {
-  "Notebook": {
-    "Export to modules": "/export",
-    "Convert to html": "/export2html",
-    "Show doc": "/showdoc",
-    "Test functions": "/test",
-    "Core functions": "/core",
-    "Command line functions": "/cli"
+  "emotion_transformer": {
+    "Overview": "/",
+    "Dataloader for the SemEval Challenge": "/dataloader",
+    "Transformer Model for the SemEval Challenge": "/model",
+    "PyTorch Lightning module for the SemEval Challenge": "/lightning"
   }
 }
