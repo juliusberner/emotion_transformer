@@ -2,7 +2,7 @@
   "emotion_transformer": {
     "Overview": "/",
     "Data ": "/dataloader",
-    "Transformer Model for the SemEval Challenge": "/model",
-    "PyTorch Lightning module for the SemEval Challenge": "/lightning"
+    "Model": "/model",
+    "PyTorch Lightning": "/lightning"
   }
 }
