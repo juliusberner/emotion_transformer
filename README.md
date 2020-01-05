@@ -24,9 +24,9 @@
 
 `pip install packaging`
 
-`git clone https://github.com/juliusberner/emotion_detect`
+`git clone https://github.com/juliusberner/emotion_transformer`
 
-`pip install -e emotion_detect`
+`pip install -e emotion_transformer`
 
 ### How To Use
 

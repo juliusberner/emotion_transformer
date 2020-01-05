@@ -1,5 +1,5 @@
 
-from emotion_detect.core import EmotionModel, get_args, main
+from emotion_transformer.core import EmotionModel, get_args, main
 
 if __name__ == '__main__':
     hparams = get_args(EmotionModel)
