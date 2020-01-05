@@ -108,6 +108,48 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;mode&#39;: &#39;default&#39;,
+ &#39;save_path&#39;: &#39;/home/julius/Documents/nbdev_venv/emotion_transformer/logs&#39;,
+ &#39;gpus&#39;: 0,
+ &#39;distributed_backend&#39;: &#39;dp&#39;,
+ &#39;use_16bit&#39;: False,
+ &#39;fast_dev_run&#39;: False,
+ &#39;track_grad_norm&#39;: False,
+ &#39;overfit_on_subset&#39;: 0.0,
+ &#39;bs&#39;: 40,
+ &#39;max_seq_len&#39;: 10,
+ &#39;projection_size&#39;: 100,
+ &#39;dropout&#39;: 0.1,
+ &#39;n_layers&#39;: 1,
+ &#39;lr&#39;: 2e-05,
+ &#39;layerwise_decay&#39;: 0.95,
+ &#39;train_file&#39;: &#39;/home/julius/Documents/nbdev_venv/emotion_transformer/data/clean_train.txt&#39;,
+ &#39;val_file&#39;: &#39;/home/julius/Documents/nbdev_venv/emotion_transformer/data/clean_val.txt&#39;,
+ &#39;test_file&#39;: &#39;/home/julius/Documents/nbdev_venv/emotion_transformer/data/clean_test.txt&#39;,
+ &#39;epochs&#39;: 10,
+ &#39;seed&#39;: None,
+ &#39;hpc_exp_number&#39;: None,
+ &#39;trials&#39;: &lt;bound method HyperOptArgumentParser.opt_trials of HyperOptArgumentParser(prog=&#39;ipykernel_launcher.py&#39;, usage=None, description=None, formatter_class=&lt;class &#39;argparse.HelpFormatter&#39;&gt;, conflict_handler=&#39;error&#39;, add_help=True)&gt;,
+ &#39;optimize_parallel&#39;: &lt;bound method HyperOptArgumentParser.optimize_parallel of HyperOptArgumentParser(prog=&#39;ipykernel_launcher.py&#39;, usage=None, description=None, formatter_class=&lt;class &#39;argparse.HelpFormatter&#39;&gt;, conflict_handler=&#39;error&#39;, add_help=True)&gt;,
+ &#39;optimize_parallel_gpu&#39;: &lt;bound method HyperOptArgumentParser.optimize_parallel_gpu of HyperOptArgumentParser(prog=&#39;ipykernel_launcher.py&#39;, usage=None, description=None, formatter_class=&lt;class &#39;argparse.HelpFormatter&#39;&gt;, conflict_handler=&#39;error&#39;, add_help=True)&gt;,
+ &#39;optimize_parallel_cpu&#39;: &lt;bound method HyperOptArgumentParser.optimize_parallel_cpu of HyperOptArgumentParser(prog=&#39;ipykernel_launcher.py&#39;, usage=None, description=None, formatter_class=&lt;class &#39;argparse.HelpFormatter&#39;&gt;, conflict_handler=&#39;error&#39;, add_help=True)&gt;,
+ &#39;generate_trials&#39;: &lt;bound method HyperOptArgumentParser.generate_trials of HyperOptArgumentParser(prog=&#39;ipykernel_launcher.py&#39;, usage=None, description=None, formatter_class=&lt;class &#39;argparse.HelpFormatter&#39;&gt;, conflict_handler=&#39;error&#39;, add_help=True)&gt;,
+ &#39;optimize_trials_parallel_gpu&#39;: &lt;bound method HyperOptArgumentParser.optimize_trials_parallel_gpu of HyperOptArgumentParser(prog=&#39;ipykernel_launcher.py&#39;, usage=None, description=None, formatter_class=&lt;class &#39;argparse.HelpFormatter&#39;&gt;, conflict_handler=&#39;error&#39;, add_help=True)&gt;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -160,6 +202,23 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Epoch 1:  50%|█████     | 1/2 [00:03&lt;00:03,  3.02s/batch, batch_nb=0, loss=2.090, v_nb=0]
+Validating:   0%|          | 0/1 [00:00&lt;?, ?batch/s]
+Epoch 1: 100%|██████████| 2/2 [00:03&lt;00:00,  2.36s/batch, batch_nb=0, f1_score=0.125, fn=5, fp=37, loss=2.090, precision=0.075, recall=0.375, tp=3, v_nb=0, val_acc=0.075, val_loss=2.08]
+Epoch 1: 100%|██████████| 2/2 [00:05&lt;00:00,  2.87s/batch, batch_nb=0, f1_score=0.125, fn=5, fp=37, loss=2.090, precision=0.075, recall=0.375, tp=3, v_nb=0, val_acc=0.075, val_loss=2.08]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -191,6 +250,20 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Writing main.py
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 

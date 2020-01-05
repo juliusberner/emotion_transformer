@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Dataloader for the SemEval Challenge
+      title: 'Data '
       url: /dataloader
     - output: web,pdf
       title: Transformer Model for the SemEval Challenge

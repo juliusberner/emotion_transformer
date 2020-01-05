@@ -11,7 +11,7 @@
 
 # Contextual Emotion Detection in Text (DoubleDistilBert Model)
 
-> We use the excellent `pytorch-lightning`, Huggingface `transformers`, and fast.ai `nbdev` libraries for a clean and efficient implementation and demonstrate the performance of our model on the SemEval-2019 Task 3 dataset.
+> We use the excellent pytorch-lightning, Huggingface transformers, and fast.ai nbdev libraries for a clean and efficient implementation and demonstrate the performance of our model on the SemEval-2019 Task 3 dataset.
 
 
 [SemEval-2019 Task 3 description](https://www.aclweb.org/anthology/S19-2005/): 
