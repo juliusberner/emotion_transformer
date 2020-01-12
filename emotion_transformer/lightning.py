@@ -188,7 +188,7 @@ def get_args(model):
     parent_parser.add_argument('--save-path', metavar='DIR', default=os.path.join(root_dir, 'logs'), type=str,
                                help='path to save output')
     parent_parser.add_argument('--gpus', type=str, default=None, help='which gpus')
-    parent_parser.add_argument('--distributed-backend', type=str, default='dp', choices=('dp', 'ddp', 'ddp2'),
+    parent_parser.add_argument('--distributed-backend', type=str, default=None, choices=('dp', 'ddp', 'ddp2'),
                                help='supports three options dp, ddp, ddp2')
     parent_parser.add_argument('--use_16bit', dest='use_16bit', action='store_true',
                                help='if true uses 16 bit precision')
