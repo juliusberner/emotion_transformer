@@ -67,8 +67,8 @@ class EmotionModel(pl.LightningModule):
 
         # in DP mode (default) make sure if result is scalar, there's another dim in the beginning
         if self.trainer.use_dp or self.trainer.use_ddp2:
-            scores = [score.unsqueeze(0) for score in scores_dict.values]
-            scores_dict = {key: value for key, value in zip(scores_dict.keys, scores)}
+            scores = [score.unsqueeze(0) for score in scores_dict.values()]
+            scores_dict = {key: value for key, value in zip(scores_dict.keys(), scores)}
 
         return scores_dict
 
@@ -88,7 +88,6 @@ class EmotionModel(pl.LightningModule):
                 metric_value = output[metric_name]
 
                 if self.trainer.use_dp or self.trainer.use_ddp2:
-                    print(metric_value.shape)
                     if metric_name in ['tp', 'fp', 'fn']:
                         metric_value = torch.sum(metric_value)
                     else:
@@ -182,8 +181,7 @@ def get_args(model):
                                help='supports default for train/test/val and hparams_search for a hyperparameter search')
     parent_parser.add_argument('--save-path', metavar='DIR', default=os.path.join(root_dir, 'logs'), type=str,
                                help='path to save output')
-    parent_parser.add_argument('--gpus', type=int, default=0,
-                               help='how many gpus')
+    parent_parser.add_argument('--gpus', type=str, default=None, help='which gpus')
     parent_parser.add_argument('--distributed-backend', type=str, default='dp', choices=('dp', 'ddp', 'ddp2'),
                                help='supports three options dp, ddp, ddp2')
     parent_parser.add_argument('--use_16bit', dest='use_16bit', action='store_true',
@@ -201,7 +199,7 @@ def get_args(model):
     return parser
 
 # Cell
-def main(hparams):
+def main(hparams, gpus = None):
     """
     Trains the Lightning model as specified in `hparams`
     """
@@ -212,26 +210,15 @@ def main(hparams):
         torch.manual_seed(hparams.seed)
         torch.backends.cudnn.deterministic = True
 
-    checkpoint_callback = pl.callbacks.ModelCheckpoint(
-        filepath=os.path.join(hparams.save_path, 'model_checkpoints'),
-        save_best_only=True,
-        verbose=True,
-        monitor='f1_score',
-        mode='max',
-        prefix=''
-    )
-
 
     trainer = pl.Trainer(default_save_path=hparams.save_path,
-                        gpus=hparams.gpus,
+                        gpus=len(gpus.split(",")) if gpus else hparams.gpus,
                         distributed_backend=hparams.distributed_backend,
                         use_amp=hparams.use_16bit,
-                        checkpoint_callback=checkpoint_callback,
                         max_nb_epochs=hparams.epochs,
                         weights_summary='top',
                         fast_dev_run=hparams.fast_dev_run,
                         track_grad_norm=(2 if hparams.track_grad_norm else -1),
-                        overfit_pct=hparams.overfit_on_subset,
-                        )
+                        overfit_pct=hparams.overfit_on_subset)
 
     trainer.fit(model)

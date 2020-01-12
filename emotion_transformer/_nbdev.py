@@ -16,7 +16,7 @@ index = {"open_data": "00_dataloader.ipynb",
 
 modules = ["dataloader.py",
            "model.py",
-           "core.py"]
+           "lightning.py"]
 
 git_url = "https://github.com/juliusberner/emotion_transformer/tree/master/"
 

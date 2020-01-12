@@ -28,6 +28,15 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Lightning-Module">Lightning Module<a class="anchor-link" href="#Lightning-Module">&#182;</a></h2><p>Defining the Lightning module is now straightforward, see also the <a href="https://williamfalcon.github.io/pytorch-lightning/">documentation</a>. The default hyperparameter choices were motivated by <a href="https://arxiv.org/pdf/1905.05583.pdf">this paper</a>.</p>
+<p>Further references for PyTorch Lightning and its usage for Multi-GPU Training/Hyperparameter search can be found in the following blog posts by William Falcon:</p>
+<ul>
+<li><p><a href="https://towardsdatascience.com/9-tips-for-training-lightning-fast-neural-networks-in-pytorch-8e63a502f565">9 Tips For Training Lightning-Fast Neural Networks In Pytorch</a></p>
+</li>
+<li><p><a href="https://towardsdatascience.com/trivial-multi-node-training-with-pytorch-lightning-ff75dfb809bd?gi=ec854edcc8eb">Trivial Multi-Node Training With Pytorch-Lightning</a></p>
+</li>
+<li><p><a href="https://towardsdatascience.com/converting-from-keras-to-pytorch-lightning-be40326d7b7d">Converting From Keras To PyTorch Lightning</a></p>
+</li>
+</ul>
 
 </div>
 </div>
@@ -44,7 +53,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EmotionModel" class="doc_header"><code>class</code> <code>EmotionModel</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/core.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EmotionModel</code>(<strong><code>hparams</code></strong>) :: <code>LightningModule</code></p>
+<h2 id="EmotionModel" class="doc_header"><code>class</code> <code>EmotionModel</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EmotionModel</code>(<strong><code>hparams</code></strong>) :: <code>LightningModule</code></p>
 </blockquote>
 <p>PyTorch Lightning module for the Contextual Emotion Detection in Text Challenge</p>
 
@@ -58,7 +67,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next we define the HyperOptArgumentParser including distributed training (see also the <a href="https://williamfalcon.github.io/pytorch-lightning/Trainer/Distributed%20training/">documentation</a>) and debugging functionality.</p>
+<h2 id="Hyperparameter-Search-Argument-Parser">Hyperparameter Search Argument Parser<a class="anchor-link" href="#Hyperparameter-Search-Argument-Parser">&#182;</a></h2><p>Next we define the HyperOptArgumentParser including distributed training (see also the <a href="https://williamfalcon.github.io/pytorch-lightning/Trainer/Distributed%20training/">documentation</a>) and debugging functionality.</p>
 
 </div>
 </div>
@@ -75,7 +84,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_args" class="doc_header"><code>get_args</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/core.py#L173" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_args</code>(<strong><code>model</code></strong>)</p>
+<h4 id="get_args" class="doc_header"><code>get_args</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L172" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_args</code>(<strong><code>model</code></strong>)</p>
 </blockquote>
 <p>returns the HyperOptArgumentParser</p>
 
@@ -118,7 +127,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;mode&#39;: &#39;default&#39;,
  &#39;save_path&#39;: &#39;/home/julius/Documents/nbdev_venv/emotion_transformer/logs&#39;,
- &#39;gpus&#39;: 0,
+ &#39;gpus&#39;: None,
  &#39;distributed_backend&#39;: &#39;dp&#39;,
  &#39;use_16bit&#39;: False,
  &#39;fast_dev_run&#39;: False,
@@ -153,7 +162,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next we define a function calling the Lightning trainer and saving checkpoints.</p>
+<h2 id="Trainer">Trainer<a class="anchor-link" href="#Trainer">&#182;</a></h2><p>Next we define a function calling the Lightning trainer using the setting specified in <code>hparams</code>.</p>
 
 </div>
 </div>
@@ -170,7 +179,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="main" class="doc_header"><code>main</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/core.py#L204" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>main</code>(<strong><code>hparams</code></strong>)</p>
+<h4 id="main" class="doc_header"><code>main</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L202" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>main</code>(<strong><code>hparams</code></strong>, <strong><code>gpus</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Trains the Lightning model as specified in <code>hparams</code></p>
 
@@ -208,10 +217,10 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Epoch 1:  50%|█████     | 1/2 [00:03&lt;00:03,  3.02s/batch, batch_nb=0, loss=2.090, v_nb=0]
+<pre>Epoch 1:  50%|█████     | 1/2 [00:02&lt;00:02,  2.44s/batch, batch_nb=0, loss=2.064, v_nb=1]
 Validating:   0%|          | 0/1 [00:00&lt;?, ?batch/s]
-Epoch 1: 100%|██████████| 2/2 [00:03&lt;00:00,  2.36s/batch, batch_nb=0, f1_score=0.125, fn=5, fp=37, loss=2.090, precision=0.075, recall=0.375, tp=3, v_nb=0, val_acc=0.075, val_loss=2.08]
-Epoch 1: 100%|██████████| 2/2 [00:05&lt;00:00,  2.87s/batch, batch_nb=0, f1_score=0.125, fn=5, fp=37, loss=2.090, precision=0.075, recall=0.375, tp=3, v_nb=0, val_acc=0.075, val_loss=2.08]
+Epoch 1: 100%|██████████| 2/2 [00:03&lt;00:00,  1.92s/batch, batch_nb=0, f1_score=nan, fn=11, fp=0, loss=2.064, precision=nan, recall=0, tp=0, v_nb=1, val_acc=0.725, val_loss=2.05]
+Epoch 1: 100%|██████████| 2/2 [00:05&lt;00:00,  2.60s/batch, batch_nb=0, f1_score=nan, fn=11, fp=0, loss=2.064, precision=nan, recall=0, tp=0, v_nb=1, val_acc=0.725, val_loss=2.05]
 </pre>
 </div>
 </div>
@@ -222,7 +231,7 @@ Epoch 1: 100%|██████████| 2/2 [00:05&lt;00:00,  2.87s/batch,
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We also create a python file for automatic hyperparameter optimization across different gpus or cpus.</p>
+<p>We also create a python file for automatic hyperparameter optimization across different GPUs or CPUs:</p>
 
 </div>
 </div>
@@ -234,7 +243,7 @@ Epoch 1: 100%|██████████| 2/2 [00:05&lt;00:00,  2.87s/batch,
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> main.py
 
-<span class="kn">from</span> <span class="nn">emotion_transformer.core</span> <span class="k">import</span> <span class="n">EmotionModel</span><span class="p">,</span> <span class="n">get_args</span><span class="p">,</span> <span class="n">main</span>
+<span class="kn">from</span> <span class="nn">emotion_transformer.lightning</span> <span class="k">import</span> <span class="n">EmotionModel</span><span class="p">,</span> <span class="n">get_args</span><span class="p">,</span> <span class="n">main</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">hparams</span> <span class="o">=</span> <span class="n">get_args</span><span class="p">(</span><span class="n">EmotionModel</span><span class="p">)</span>
@@ -243,10 +252,11 @@ Epoch 1: 100%|██████████| 2/2 [00:05&lt;00:00,  2.87s/batch,
     <span class="k">if</span> <span class="n">hparams</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
         <span class="n">main</span><span class="p">(</span><span class="n">hparams</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">hparams</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;hparams_search&#39;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">hparams</span><span class="o">.</span><span class="n">gpus</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">hparams</span><span class="o">.</span><span class="n">optimize_parallel_cpu</span><span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">nb_trials</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">nb_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">hparams</span><span class="o">.</span><span class="n">gpus</span><span class="p">:</span>
+            <span class="n">hparams</span><span class="o">.</span><span class="n">optimize_parallel_gpu</span><span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">max_nb_trials</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
+                                          <span class="n">gpu_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">gpus</span> <span class="k">for</span> <span class="n">gpus</span> <span class="ow">in</span> <span class="n">hparams</span><span class="o">.</span><span class="n">gpus</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">hparams</span><span class="o">.</span><span class="n">optimize_parallel_gpu</span><span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">nb_trials</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">gpus</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">hparams</span><span class="o">.</span><span class="n">gpus</span><span class="p">)))</span>
+            <span class="n">hparams</span><span class="o">.</span><span class="n">optimize_parallel_cpu</span><span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">nb_trials</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">nb_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -267,6 +277,45 @@ Epoch 1: 100%|██████████| 2/2 [00:05&lt;00:00,  2.87s/batch,
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Background-Information">Background Information<a class="anchor-link" href="#Background-Information">&#182;</a></h2><p>For the interested reader we provide some background information on the (distributed) training loop:</p>
+<ul>
+<li>one epoch consists of m = ceil(30160/batchsize) batches for the training and additional n = ceil(2755/batchsize) 
+batches for the validation.</li>
+</ul>
+<p><strong>dp case:</strong></p>
+<ul>
+<li><p>the batchsize will be split and each gpu receives (up to rounding) a batch of size batchsize/num_gpus</p>
+</li>
+<li><p>in the validation steps each gpu computes its own scores for each of the n batches (of size batchsize/num_gpus), i.e. each gpu calls the <code>validation_step</code> method</p>
+</li>
+<li><p>the <code>output</code> which is passed to the <code>validation_end</code> method consists of list of dictionaries (containing the concatenated scores from the different gpus), i.e.</p>
+</li>
+</ul>
+<p><code>output = [ {first_metric: [first_gpu_batch_1,...,last_gpu_batch_1],...,
+             last_metric:  [first_gpu_batch_1,...,last_gpu_batch_1]},..., 
+            {first_metric: [first_gpu_batch_n,...,last_gpu_batch_n],...,
+             last_metric:  [first_gpu_batch_n,...,last_gpu_batch_n]} ]</code></p>
+<p><strong>ddp case:</strong> (does not work from jupyter notebooks)</p>
+<ul>
+<li><p>the gpus receive (disjoint) samples of size batchsize and train on own processes but communicate and average their gradients (thus the resulting models on each gpu have the same weights)</p>
+</li>
+<li><p>each gpu computes its own validation_end method and its own list of dictionaries</p>
+</li>
+</ul>
+<p><code>output_first_gpu = [ {first_metric: batch_1,...,last_metric: batch_1},..., 
+                      {first_metric: batch_n,...,last_metric: batch_n} ]</code></p>
+<p><code>output_last_gpu = [ {first_metric: batch_1,...,last_metric: batch_1},..., 
+                      {first_metric: batch_n,...,last_metric: batch_n} ]</code></p>
+<p><strong>ddp case:</strong> (does not work from jupyter notebooks)</p>
+<ul>
+<li>on each node we have the dp case but the nodes communicate analogous to the ddp case</li>
+</ul>
+
+</div>
+</div>
 </div>
 </div>
  

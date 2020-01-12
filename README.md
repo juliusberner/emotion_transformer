@@ -24,15 +24,15 @@
 
 `pip install packaging`
 
-`git clone https://github.com/juliusberner/emotion_transformer`
-
-`pip install -e emotion_transformer`
+`pip install git+https://github.com/juliusberner/emotion_transformer`
 
 ### How To Use
 
-Hyperparameter search with 2 GPUs and half-precision (automatically done by `test_tube` and `pytorch_lightning`):
+Parallel hyperparameter search on 8 GPUs (2 GPUs with with specified indices for each setting) using half-precision (automatically done by `test_tube` and `pytorch_lightning`):
 
-`python main.py --gpus=2 --use_16bit --mode=hparams_search`
+`python main.py --gpus='0,1 2,3' --use_16bit --mode=hparams_search`
+
+(tested with nvidia-docker `FROM nvcr.io/nvidia/pytorch:19.02-py3` as specified in `requirements.txt`)
 
 ### Documentation
 

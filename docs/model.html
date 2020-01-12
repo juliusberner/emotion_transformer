@@ -313,12 +313,12 @@ and the binary loss function</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(tensor(2.0834, grad_fn=&lt;AddBackward0&gt;),
- tensor([[-0.0440,  0.0428,  0.0142,  0.0245],
-         [-0.0439,  0.0383,  0.0104,  0.0283],
-         [-0.0409,  0.0409,  0.0128,  0.0301],
-         [-0.0461,  0.0404,  0.0084,  0.0242],
-         [-0.0432,  0.0420,  0.0108,  0.0279]], grad_fn=&lt;AddmmBackward&gt;))</pre>
+<pre>(tensor(2.0534, grad_fn=&lt;AddBackward0&gt;),
+ tensor([[-0.0060,  0.0565, -0.0573, -0.0431],
+         [-0.0034,  0.0541, -0.0548, -0.0447],
+         [-0.0109,  0.0533, -0.0560, -0.0412],
+         [ 0.0047,  0.0604, -0.0612, -0.0435],
+         [-0.0031,  0.0494, -0.0585, -0.0466]], grad_fn=&lt;AddmmBackward&gt;))</pre>
 </div>
 
 </div>
@@ -371,9 +371,9 @@ and the binary loss function</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor([ 0.0000e+00,  0.0000e+00,  0.0000e+00,  8.2609e-07,  4.6803e-07,
-        -1.2145e-05,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,
-         0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00,  0.0000e+00])</pre>
+<pre>tensor([0.0000e+00, 0.0000e+00, 0.0000e+00, 7.2630e-07, 1.2209e-06, 1.0843e-04,
+        0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00,
+        0.0000e+00, 0.0000e+00, 0.0000e+00])</pre>
 </div>
 
 </div>
@@ -480,11 +480,11 @@ These correspond to the second conversation:</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;val_loss&#39;: tensor(2.0834, grad_fn=&lt;AddBackward0&gt;),
- &#39;val_acc&#39;: tensor(0.2000),
- &#39;tp&#39;: tensor(1.),
- &#39;fp&#39;: tensor(4.),
- &#39;fn&#39;: tensor(2.)}</pre>
+<pre>{&#39;val_loss&#39;: tensor(2.0534, grad_fn=&lt;AddBackward0&gt;),
+ &#39;val_acc&#39;: tensor(0.4000),
+ &#39;tp&#39;: tensor(2.),
+ &#39;fp&#39;: tensor(3.),
+ &#39;fn&#39;: tensor(1.)}</pre>
 </div>
 
 </div>
@@ -513,9 +513,9 @@ These correspond to the second conversation:</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;precision&#39;: tensor(0.2000),
- &#39;recall&#39;: tensor(0.3333),
- &#39;f1_score&#39;: tensor(0.2500)}</pre>
+<pre>{&#39;precision&#39;: tensor(0.4000),
+ &#39;recall&#39;: tensor(0.6667),
+ &#39;f1_score&#39;: tensor(0.5000)}</pre>
 </div>
 
 </div>

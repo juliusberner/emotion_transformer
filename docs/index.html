@@ -40,22 +40,28 @@ summary: "We use the excellent pytorch-lightning, Huggingface transformers, and 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><code>pip install packaging</code></p>
-<p><code>git clone https://github.com/juliusberner/emotion_transformer</code></p>
-<p><code>pip install -e emotion_transformer</code></p>
+<p><code>pip install git+https://github.com/juliusberner/emotion_transformer</code></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-To-Use">How To Use<a class="anchor-link" href="#How-To-Use">&#182;</a></h3><p>Hyperparameter search with 2 GPUs and half-precision (automatically done by <code>test_tube</code> and <code>pytorch_lightning</code>):</p>
+<h3 id="How-To-Use">How To Use<a class="anchor-link" href="#How-To-Use">&#182;</a></h3><p>Parallel hyperparameter search on 8 GPUs (2 GPUs with with specified indices for each setting) using half-precision (automatically done by <code>test_tube</code> and <code>pytorch_lightning</code>):</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>python main.py --gpus=2 --use_16bit --mode=hparams_search</code></p>
+<p><code>python main.py --gpus='0,1 2,3' --use_16bit --mode=hparams_search</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(tested with nvidia-docker <code>FROM nvcr.io/nvidia/pytorch:19.02-py3</code> as specified in <code>requirements.txt</code>)</p>
 
 </div>
 </div>
