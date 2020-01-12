@@ -105,6 +105,11 @@ class EmotionModel(pl.LightningModule):
         result = {'progress_bar': tqdm_dict, 'log': tqdm_dict, 'val_loss': tqdm_dict["val_loss"]}
         return result
 
+    def test_step(self, batch, batch_idx):
+        return self.validation_step(batch, batch_idx)
+
+    def test_end(self, outputs):
+        return self.validation_end(outputs)
 
     def configure_optimizers(self):
         """
@@ -114,7 +119,7 @@ class EmotionModel(pl.LightningModule):
                                                                  self.hparams.layerwise_decay)
         opt_parameters += [{'params': self.context_classifier_model.parameters()}]
 
-        optimizer = torch.optim.Adam(opt_parameters, lr=self.hparams.lr)
+        optimizer = torch.optim.AdamW(opt_parameters, lr=self.hparams.lr)
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10)
         return [optimizer], [scheduler]
 
@@ -145,15 +150,15 @@ class EmotionModel(pl.LightningModule):
         parser = HyperOptArgumentParser(parents=[parent_parser])
 
         parser.opt_list('--bs', '--batch_size', default=40, type=int,
-                        options=[10, 40, 80], tunable=True, metavar='N',
+                        options=[32, 64, 128], tunable=True, metavar='N',
                         help='mini-batch size (default: 256), this is the'
                         'total batch size of all GPUs on the current node'
                         'when using Data Parallel or Distributed Data Parallel')
-        parser.opt_list('--max_seq_len', default=10, type=int, options=[5, 10, 15], tunable=True)
-        parser.opt_list('--projection_size', default=100, type=int, options=[50, 100, 150], tunable=True)
+        parser.opt_list('--max_seq_len', default=10, type=int, options=[32, 64], tunable=True)
+        parser.opt_list('--projection_size', default=100, type=int, options=[64, 256, 512], tunable=True)
 
-        parser.opt_list('--dropout', default=0.1, type=float, options=[0.05, 0.1, 0.2], tunable=True)
-        parser.opt_list('--n_layers', default=1, type=int, options=[1, 2, 3], tunable=True)
+        parser.opt_list('--dropout', default=0.1, type=float, options=[0.1, 0.2], tunable=True)
+        parser.opt_list('--n_layers', default=1, type=int, options=[1, 3], tunable=True)
         parser.opt_range('--lr', '--learning_rate', default=2.0e-5, type=float,
                          tunable=True, low=1.0e-5, high=3.0e-5, nb_samples=4,
                          help='initial learning rate', metavar='LR', dest='lr')
@@ -177,7 +182,8 @@ def get_args(model):
                                            add_help = False)
 
     root_dir = os.getcwd()
-    parent_parser.add_argument('--mode', type=str, default='default', choices=('default', 'hparams_search'),
+    parent_parser.add_argument('--mode', type=str, default='default',
+                               choices=('default', 'test', 'hparams_search'),
                                help='supports default for train/test/val and hparams_search for a hyperparameter search')
     parent_parser.add_argument('--save-path', metavar='DIR', default=os.path.join(root_dir, 'logs'), type=str,
                                help='path to save output')
@@ -192,8 +198,6 @@ def get_args(model):
                                help='debugging a full train/val/test loop')
     parent_parser.add_argument('--track_grad_norm', dest='track_grad_norm', action='store_true',
                                help='inspect gradient norms')
-    parent_parser.add_argument('--overfit_on_subset', default=0.0, type=float,
-                                help='debugging trick to make model overfit the specified fraction of the data')
 
     parser = model.add_model_specific_args(parent_parser, root_dir)
     return parser
@@ -216,9 +220,9 @@ def main(hparams, gpus = None):
                         distributed_backend=hparams.distributed_backend,
                         use_amp=hparams.use_16bit,
                         max_nb_epochs=hparams.epochs,
-                        weights_summary='top',
                         fast_dev_run=hparams.fast_dev_run,
-                        track_grad_norm=(2 if hparams.track_grad_norm else -1),
-                        overfit_pct=hparams.overfit_on_subset)
-
+                        track_grad_norm=(2 if hparams.track_grad_norm else -1))
     trainer.fit(model)
+
+    if hparams.mode == 'test':
+        trainer.test()

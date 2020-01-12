@@ -5,7 +5,7 @@ if __name__ == '__main__':
     hparams = get_args(EmotionModel)
     hparams = hparams.parse_args()
 
-    if hparams.mode == 'default':
+    if hparams.mode in ['test','default']:
         main(hparams)
     elif hparams.mode == 'hparams_search':
         if hparams.gpus:
