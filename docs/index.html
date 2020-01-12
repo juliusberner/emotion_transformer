@@ -33,7 +33,8 @@ summary: "We use the excellent pytorch-lightning, Huggingface transformers, and 
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://www.aclweb.org/anthology/S19-2005/">SemEval-2019 Task 3 description</a>: </p>
 <p>"Lack of facial expressions and voice modulations make detecting emotions in text a challenging problem. For instance, as humans, on reading "Why don't you ever text me!" we can either interpret it as a sad or angry emotion and the same ambiguity exists for machines. However, the context of dialogue can prove helpful in detection of the emotion. In this task, given a textual dialogue i.e. an utterance along with two previous turns of context, the goal was to infer the underlying emotion of the utterance by choosing from four emotion classes - Happy, Sad, Angry and Others. To facilitate the participation in this task, textual dialogues from user interaction with a conversational agent were taken and annotated for emotion classes after several data processing steps."</p>
-<p><strong>Approach:</strong> Pre-Trained DistilBert <code>transformers</code> model for sentence embeddings and contextual information via another Bert model on top</p>
+<hr>
+<p><strong>Approach:</strong> Pre-Trained DistilBert model for sentence embeddings and contextual information via another Bert model on top</p>
 
 </div>
 </div>
@@ -60,12 +61,13 @@ summary: "We use the excellent pytorch-lightning, Huggingface transformers, and 
 </li>
 </ol>
 <ol>
-<li><p>Parallel hyperparameter search on 8 GPUs using half-precision (automatically done by <code>test_tube</code> and <code>pytorch_lightning</code>):</p>
+<li><p>Parallel hyperparameter search on 8 GPUs using half-precision (automatically done by test_tube and pytorch_lightning):</p>
 <p><code>python main.py --mode=hparams_search --gpus='0 1 2 3 4 5 6 7' --use_16bit</code></p>
 </li>
 </ol>
-<p>alternativ: Parallel hyperparameter search on 8 GPUs (2 GPUs with with specified indices for each setting):</p>
+<p>alternativ: Parallel hyperparameter search on 8 GPUs (2 GPUs with specified indices for each setting):</p>
 <p><code>python main.py --mode=hparams_search --gpus='0,1 2,3 4,5 6,7' --distributed_backend='dp'</code></p>
+<hr>
 <p>(tested with nvidia-docker <code>FROM nvcr.io/nvidia/pytorch:19.02-py3</code> as specified in <code>requirements.txt</code>)</p>
 
 </div>
@@ -73,7 +75,7 @@ summary: "We use the excellent pytorch-lightning, Huggingface transformers, and 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h3><p>automatically created by <code>nbdev</code>: <a href="https://juliusberner.github.io/emotion_detect/">Documentation</a></p>
+<h3 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h3><p>automatically created by nbdev: <a href="https://juliusberner.github.io/emotion_detect/">Documentation</a></p>
 
 </div>
 </div>

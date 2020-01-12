@@ -20,7 +20,9 @@
 
 "Lack of facial expressions and voice modulations make detecting emotions in text a challenging problem. For instance, as humans, on reading "Why don't you ever text me!" we can either interpret it as a sad or angry emotion and the same ambiguity exists for machines. However, the context of dialogue can prove helpful in detection of the emotion. In this task, given a textual dialogue i.e. an utterance along with two previous turns of context, the goal was to infer the underlying emotion of the utterance by choosing from four emotion classes - Happy, Sad, Angry and Others. To facilitate the participation in this task, textual dialogues from user interaction with a conversational agent were taken and annotated for emotion classes after several data processing steps."
 
-**Approach:** Pre-Trained DistilBert `transformers` model for sentence embeddings and contextual information via another Bert model on top
+----
+
+**Approach:** Pre-Trained DistilBert model for sentence embeddings and contextual information via another Bert model on top
 
 ### Install
 
@@ -35,20 +37,23 @@
     `python main.py --mode=test --gpus='0'`
     
 
-2. Parallel hyperparameter search on 8 GPUs using half-precision (automatically done by `test_tube` and `pytorch_lightning`):
+2. Parallel hyperparameter search on 8 GPUs using half-precision (automatically done by test_tube and pytorch_lightning):
 
     `python main.py --mode=hparams_search --gpus='0 1 2 3 4 5 6 7' --use_16bit`
 
 
-alternativ: Parallel hyperparameter search on 8 GPUs (2 GPUs with with specified indices for each setting):
+alternativ: Parallel hyperparameter search on 8 GPUs (2 GPUs with specified indices for each setting):
 
 `python main.py --mode=hparams_search --gpus='0,1 2,3 4,5 6,7' --distributed_backend='dp'`
+
+
+---
 
 (tested with nvidia-docker `FROM nvcr.io/nvidia/pytorch:19.02-py3` as specified in `requirements.txt`)
 
 ### Documentation
 
-automatically created by `nbdev`: [Documentation](https://juliusberner.github.io/emotion_detect/)
+automatically created by nbdev: [Documentation](https://juliusberner.github.io/emotion_detect/)
 
 ### Notebooks
 
