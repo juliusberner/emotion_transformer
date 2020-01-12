@@ -14,6 +14,8 @@
 > We use the excellent pytorch-lightning, Huggingface transformers, and fast.ai nbdev libraries for a clean and efficient implementation and demonstrate the performance of our model on the SemEval-2019 Task 3 dataset.
 
 
+![Project Image](images/DoubleDistilBert_Lightning.png)
+
 [SemEval-2019 Task 3 description](https://www.aclweb.org/anthology/S19-2005/): 
 
 "Lack of facial expressions and voice modulations make detecting emotions in text a challenging problem. For instance, as humans, on reading "Why don't you ever text me!" we can either interpret it as a sad or angry emotion and the same ambiguity exists for machines. However, the context of dialogue can prove helpful in detection of the emotion. In this task, given a textual dialogue i.e. an utterance along with two previous turns of context, the goal was to infer the underlying emotion of the utterance by choosing from four emotion classes - Happy, Sad, Angry and Others. To facilitate the participation in this task, textual dialogues from user interaction with a conversational agent were taken and annotated for emotion classes after several data processing steps."
@@ -30,7 +32,7 @@
 
 Parallel hyperparameter search on 8 GPUs (2 GPUs with with specified indices for each setting) using half-precision (automatically done by `test_tube` and `pytorch_lightning`):
 
-`python main.py --gpus='0,1 2,3' --use_16bit --mode=hparams_search`
+`python main.py --gpus='0,1 2,3 4,5 6,7' --use_16bit --mode=hparams_search`
 
 (tested with nvidia-docker `FROM nvcr.io/nvidia/pytorch:19.02-py3` as specified in `requirements.txt`)
 
