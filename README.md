@@ -30,21 +30,29 @@
 
 ### How To Use
 
-Parallel hyperparameter search on 8 GPUs (2 GPUs with with specified indices for each setting) using half-precision (automatically done by `test_tube` and `pytorch_lightning`):
+1. Training and testing the default configuration (e.g. on GPU with index 0)
 
-`python main.py --gpus='0,1 2,3 4,5 6,7' --use_16bit --mode=hparams_search`
+    `python main.py --mode=test --gpus='0'`
+    
+
+2. Parallel hyperparameter search on 8 GPUs using half-precision (automatically done by `test_tube` and `pytorch_lightning`):
+
+    `python main.py --mode=hparams_search --gpus='0 1 2 3 4 5 6 7' --use_16bit`
+
+
+alternativ: Parallel hyperparameter search on 8 GPUs (2 GPUs with with specified indices for each setting):
+
+`python main.py --mode=hparams_search --gpus='0,1 2,3 4,5 6,7' --distributed_backend='dp'`
 
 (tested with nvidia-docker `FROM nvcr.io/nvidia/pytorch:19.02-py3` as specified in `requirements.txt`)
 
 ### Documentation
 
-automatically created by `nbdev`:
-
-https://juliusberner.github.io/emotion_detect/ 
+automatically created by `nbdev`: [Documentation](https://juliusberner.github.io/emotion_detect/)
 
 ### Notebooks
 
-Self-explanatory jupyter notebooks:
+Jupyter notebooks explaining the dataloader, the model, and the lightning module:
 
 `00_dataloader.ipynb`
 

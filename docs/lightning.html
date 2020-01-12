@@ -53,7 +53,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EmotionModel" class="doc_header"><code>class</code> <code>EmotionModel</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EmotionModel</code>(<strong><code>hparams</code></strong>) :: <code>LightningModule</code></p>
+<h2 id="EmotionModel" class="doc_header"><code>class</code> <code>EmotionModel</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L17" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EmotionModel</code>(<strong><code>hparams</code></strong>) :: <code>LightningModule</code></p>
 </blockquote>
 <p>PyTorch Lightning module for the Contextual Emotion Detection in Text Challenge</p>
 
@@ -84,7 +84,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_args" class="doc_header"><code>get_args</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L172" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_args</code>(<strong><code>model</code></strong>)</p>
+<h4 id="get_args" class="doc_header"><code>get_args</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_args</code>(<strong><code>model</code></strong>)</p>
 </blockquote>
 <p>returns the HyperOptArgumentParser</p>
 
@@ -128,11 +128,10 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 <pre>{&#39;mode&#39;: &#39;default&#39;,
  &#39;save_path&#39;: &#39;/home/julius/Documents/nbdev_venv/emotion_transformer/logs&#39;,
  &#39;gpus&#39;: None,
- &#39;distributed_backend&#39;: &#39;dp&#39;,
+ &#39;distributed_backend&#39;: None,
  &#39;use_16bit&#39;: False,
  &#39;fast_dev_run&#39;: False,
  &#39;track_grad_norm&#39;: False,
- &#39;overfit_on_subset&#39;: 0.0,
  &#39;bs&#39;: 40,
  &#39;max_seq_len&#39;: 10,
  &#39;projection_size&#39;: 100,
@@ -179,7 +178,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="main" class="doc_header"><code>main</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L202" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>main</code>(<strong><code>hparams</code></strong>, <strong><code>gpus</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="main" class="doc_header"><code>main</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L207" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>main</code>(<strong><code>hparams</code></strong>, <strong><code>gpus</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Trains the Lightning model as specified in <code>hparams</code></p>
 
@@ -217,10 +216,10 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Epoch 1:  50%|█████     | 1/2 [00:02&lt;00:02,  2.42s/batch, batch_nb=0, loss=2.077, v_nb=2]
+<pre>Epoch 1:  50%|█████     | 1/2 [00:03&lt;00:03,  3.26s/batch, batch_nb=0, loss=2.098, v_nb=2]
 Validating:   0%|          | 0/1 [00:00&lt;?, ?batch/s]
-Epoch 1: 100%|██████████| 2/2 [00:03&lt;00:00,  1.91s/batch, batch_nb=0, f1_score=nan, fn=7, fp=40, loss=2.077, precision=0, recall=0, tp=0, v_nb=2, val_acc=0, val_loss=2.09]
-Epoch 1: 100%|██████████| 2/2 [00:06&lt;00:00,  3.02s/batch, batch_nb=0, f1_score=nan, fn=7, fp=40, loss=2.077, precision=0, recall=0, tp=0, v_nb=2, val_acc=0, val_loss=2.09]
+Epoch 1: 100%|██████████| 2/2 [00:04&lt;00:00,  2.56s/batch, batch_nb=0, f1_score=nan, fn=7, fp=40, loss=2.098, precision=0, recall=0, tp=0, v_nb=2, val_acc=0, val_loss=2.12]
+Epoch 1: 100%|██████████| 2/2 [00:06&lt;00:00,  3.04s/batch, batch_nb=0, f1_score=nan, fn=7, fp=40, loss=2.098, precision=0, recall=0, tp=0, v_nb=2, val_acc=0, val_loss=2.12]
 </pre>
 </div>
 </div>
@@ -249,7 +248,7 @@ Epoch 1: 100%|██████████| 2/2 [00:06&lt;00:00,  3.02s/batch,
     <span class="n">hparams</span> <span class="o">=</span> <span class="n">get_args</span><span class="p">(</span><span class="n">EmotionModel</span><span class="p">)</span>
     <span class="n">hparams</span> <span class="o">=</span> <span class="n">hparams</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="n">hparams</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">hparams</span><span class="o">.</span><span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="s1">&#39;default&#39;</span><span class="p">]:</span>
         <span class="n">main</span><span class="p">(</span><span class="n">hparams</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">hparams</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;hparams_search&#39;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">hparams</span><span class="o">.</span><span class="n">gpus</span><span class="p">:</span>

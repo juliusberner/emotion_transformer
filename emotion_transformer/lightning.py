@@ -6,6 +6,7 @@ __all__ = ['EmotionModel', 'get_args', 'main']
 import logging
 logging.disable(logging.CRITICAL)
 import os
+import random
 import torch
 import pytorch_lightning as pl
 from test_tube import HyperOptArgumentParser
@@ -162,7 +163,7 @@ class EmotionModel(pl.LightningModule):
         parser.opt_range('--lr', '--learning_rate', default=2.0e-5, type=float,
                          tunable=True, low=1.0e-5, high=3.0e-5, nb_samples=4,
                          help='initial learning rate', metavar='LR', dest='lr')
-        parser.opt_list('--layerwise_decay', default=0.95, type=float, options=[0.99, 0.95, 0.9], tunable=True)
+        parser.opt_list('--layerwise_decay', default=0.95, type=float, options=[0.4, 0.6, 0.8], tunable=True)
         parser.add_argument('--train_file', default=os.path.join(root_dir, 'data/clean_train.txt'), type=str)
         parser.add_argument('--val_file', default=os.path.join(root_dir, 'data/clean_val.txt'), type=str)
         parser.add_argument('--test_file', default=os.path.join(root_dir, 'data/clean_test.txt'), type=str)
