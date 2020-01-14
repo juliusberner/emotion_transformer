@@ -49,7 +49,7 @@ class sentence_embeds_model(torch.nn.Module):
                                   attention_mask = attention_mask, inputs_embeds = input_embeds)
 
         cls = output[0][:,0]
-        hidden_mean = torch.mean(output[1][-2],1)
+        hidden_mean = torch.mean(output[1][-1],1)
         sentence_embeds = torch.cat([cls, hidden_mean], dim = -1)
         sentence_embeds = self.projection(sentence_embeds)
 

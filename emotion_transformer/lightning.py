@@ -169,7 +169,7 @@ class EmotionModel(pl.LightningModule):
         parser.add_argument('--epochs', default=10, type=int, metavar='N',
                             help='number of total epochs to run')
         parser.add_argument('--seed', type=int, default=None,
-                            help='seed for initializing training. ')
+                            help='seed for initializing training')
 
         return parser
 
