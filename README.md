@@ -53,7 +53,7 @@ alternativ: Parallel hyperparameter search on 8 GPUs (2 GPUs with specified indi
 
 ### Documentation
 
-automatically created by nbdev: [Documentation](https://juliusberner.github.io/emotion_detect/)
+automatically created by nbdev: [Documentation](https://juliusberner.github.io/emotion_transformer/)
 
 ### Notebooks
 
