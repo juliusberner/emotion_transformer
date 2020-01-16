@@ -38,8 +38,12 @@ class EmotionModel(pl.LightningModule):
         """
         no special modification required for lightning, define as you normally would
         """
-
-        sentence_embeds = self.sentence_embeds_model(input_ids = input_ids, attention_mask = attention_mask)
+        if self.current_epoch < self.hparams.frozen_epochs:
+            with torch.no_grad():
+                sentence_embeds = self.sentence_embeds_model(input_ids = input_ids,
+                                                             attention_mask = attention_mask)
+        else:
+            sentence_embeds = self.sentence_embeds_model(input_ids = input_ids, attention_mask = attention_mask)
         return self.context_classifier_model(sentence_embeds = sentence_embeds, labels = labels)
 
 
@@ -153,12 +157,18 @@ class EmotionModel(pl.LightningModule):
         parser.opt_list('--bs', default=64, type=int, options=[32, 128], tunable=True,
                         help='mini-batch size (default: 256), this is the total batch size of all GPUs'
                         'on the current node when using Data Parallel or Distributed Data Parallel')
-        parser.opt_list('--projection_size', default=256, type=int, options=[64, 512], tunable=True)
-        parser.opt_list('--n_layers', default=1, type=int, options=[1, 4], tunable=True)
+        parser.opt_list('--projection_size', default=256, type=int, options=[64, 512], tunable=True,
+                       help='sentence embedding size and hidden size for the second transformer')
+        parser.opt_list('--n_layers', default=1, type=int, options=[1, 4], tunable=True,
+                       help='number of encoder layers for the second transformer')
+        parser.opt_list('--frozen_epochs', default=2, type=int, options=[1, 4], tunable=True,
+                       help='number of epochs the pretrained DistilBert is frozen')
         parser.opt_range('--lr', default=2.0e-5, type=float, tunable=True, low=1.0e-5, high=5.0e-4,
                          nb_samples=5, help='initial learning rate')
-        parser.opt_list('--layerwise_decay', default=0.95, type=float, options=[0.3, 0.8], tunable=True)
-        parser.opt_list('--max_seq_len', default=32, type=int, options=[16, 64], tunable=False)
+        parser.opt_list('--layerwise_decay', default=0.95, type=float, options=[0.3, 0.8], tunable=True,
+                       help='layerwise decay factor for the learning rate of the pretrained DistilBert')
+        parser.opt_list('--max_seq_len', default=32, type=int, options=[16, 64], tunable=False,
+                       help='maximal number of tokens for the DistilBert input')
         parser.opt_list('--dropout', default=0.1, type=float, options=[0.1, 0.2], tunable=False)
         parser.add_argument('--train_file', default=os.path.join(root_dir, 'data/clean_train.txt'), type=str)
         parser.add_argument('--val_file', default=os.path.join(root_dir, 'data/clean_val.txt'), type=str)
@@ -175,8 +185,7 @@ def get_args(model):
     """
     returns the HyperOptArgumentParser
     """
-    parent_parser = HyperOptArgumentParser(strategy='random_search',
-                                           add_help = False)
+    parent_parser = HyperOptArgumentParser(strategy='random_search', add_help = False)
 
     root_dir = os.getcwd()
     parent_parser.add_argument('--mode', type=str, default='default',
