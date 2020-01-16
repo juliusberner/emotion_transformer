@@ -220,11 +220,15 @@ def main(hparams, gpus = None):
         torch.manual_seed(hparams.seed)
         torch.backends.cudnn.deterministic = True
 
+    early_stop_callback = pl.callbacks.EarlyStopping(monitor='val_loss', min_delta=0.00, patience=5,
+                                        verbose=False, mode='min')
+
 
     trainer = pl.Trainer(default_save_path=hparams.save_path,
                         gpus=len(gpus.split(",")) if gpus else hparams.gpus,
                         distributed_backend=hparams.distributed_backend,
                         use_amp=hparams.use_16bit,
+                        early_stop_callback=early_stop_callback,
                         max_nb_epochs=hparams.epochs,
                         fast_dev_run=hparams.fast_dev_run,
                         track_grad_norm=(2 if hparams.track_grad_norm else -1))
