@@ -26,9 +26,9 @@ class EmotionModel(pl.LightningModule):
         super(EmotionModel, self).__init__()
         self.hparams = hparams
         self.emo_dict = {'others': 0, 'sad': 1, 'angry': 2, 'happy': 3}
-        self.sentence_embeds_model = sentence_embeds_model(hparams.projection_size,
-                                                           dropout = hparams.dropout)
-        self.context_classifier_model = context_classifier_model(hparams.projection_size,
+        self.sentence_embeds_model = sentence_embeds_model(dropout = hparams.dropout)
+        self.context_classifier_model = context_classifier_model(self.sentence_embeds_model.embedding_size,
+                                                                 hparams.projection_size,
                                                                  hparams.n_layers,
                                                                  self.emo_dict,
                                                                  dropout = hparams.dropout)
@@ -168,7 +168,7 @@ class EmotionModel(pl.LightningModule):
         parser.opt_list('--layerwise_decay', default=0.95, type=float, options=[0.3, 0.8], tunable=True,
                        help='layerwise decay factor for the learning rate of the pretrained DistilBert')
         parser.opt_list('--max_seq_len', default=32, type=int, options=[16, 64], tunable=False,
-                       help='maximal number of tokens for the DistilBert input')
+                       help='maximal number of input tokens for the DistilBert model')
         parser.opt_list('--dropout', default=0.1, type=float, options=[0.1, 0.2], tunable=False)
         parser.add_argument('--train_file', default=os.path.join(root_dir, 'data/clean_train.txt'), type=str)
         parser.add_argument('--val_file', default=os.path.join(root_dir, 'data/clean_val.txt'), type=str)

@@ -15,15 +15,12 @@ class sentence_embeds_model(torch.nn.Module):
     instantiates the pretrained DistilBert model and the linear layer
     """
 
-    def __init__(self, projection_size, dropout = 0.1):
+    def __init__(self, dropout = 0.1):
         super(sentence_embeds_model, self).__init__()
 
         self.transformer = DistilBertModel.from_pretrained('distilbert-base-uncased', dropout=dropout,
                                                            output_hidden_states=True)
-
-        self.projection_size = projection_size
-        self.projection = torch.nn.Linear(2*self.transformer.config.hidden_size, self.projection_size)
-
+        self.embedding_size = 2 * self.transformer.config.hidden_size
 
     def layerwise_lr(self, lr, decay):
         """
@@ -34,7 +31,6 @@ class sentence_embeds_model(torch.nn.Module):
         opt_parameters = [{'params': bert.embeddings.parameters(), 'lr': lr*decay**num_layers}]
         opt_parameters += [{'params': bert.transformer.layer[l].parameters(), 'lr': lr*decay**(num_layers-l+1)}
                             for l in range(num_layers)]
-        opt_parameters += [{'params': self.projection.parameters()}]
         return opt_parameters
 
     def forward(self, input_ids = None, attention_mask = None, input_embeds = None):
@@ -51,9 +47,8 @@ class sentence_embeds_model(torch.nn.Module):
         cls = output[0][:,0]
         hidden_mean = torch.mean(output[1][-1],1)
         sentence_embeds = torch.cat([cls, hidden_mean], dim = -1)
-        sentence_embeds = self.projection(sentence_embeds)
 
-        return sentence_embeds.view(-1, 3, self.projection_size)
+        return sentence_embeds.view(-1, 3, self.embedding_size)
 
 # Cell
 class context_classifier_model(torch.nn.Module):
@@ -62,17 +57,18 @@ class context_classifier_model(torch.nn.Module):
     and the binary loss function
     """
 
-    def __init__(self, hidden_size, n_layers, emo_dict, dropout = 0.1):
+    def __init__(self, embedding_size, projection_size, n_layers, emo_dict, dropout = 0.1):
         super(context_classifier_model, self).__init__()
 
-
-        self.position_embeds = torch.nn.Embedding(3, hidden_size)
-        self.norm = torch.nn.LayerNorm(hidden_size)
+        self.projection_size = projection_size
+        self.projection = torch.nn.Linear(embedding_size, projection_size)
+        self.position_embeds = torch.nn.Embedding(3, projection_size)
+        self.norm = torch.nn.LayerNorm(projection_size)
         self.drop = torch.nn.Dropout(dropout)
 
         context_config = DistilBertConfig(dropout=dropout,
-                                dim=hidden_size,
-                                hidden_dim=4*hidden_size,
+                                dim=projection_size,
+                                hidden_dim=4*projection_size,
                                 n_layers=n_layers,
                                 n_heads = 1,
                                 num_labels=4)
@@ -98,8 +94,7 @@ class context_classifier_model(torch.nn.Module):
         position_ids = torch.arange(3, dtype=torch.long, device=sentence_embeds.device)
         position_ids = position_ids.expand(sentence_embeds.shape[:2])
         position_embeds = self.position_embeds(position_ids)
-
-        sentence_embeds = sentence_embeds + position_embeds
+        sentence_embeds = self.projection(sentence_embeds) + position_embeds
         sentence_embeds = self.drop(self.norm(sentence_embeds))
         if labels is None:
             return self.context_transformer(inputs_embeds = sentence_embeds.flip(1), labels = labels)[0]
