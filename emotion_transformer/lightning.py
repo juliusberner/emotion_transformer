@@ -150,16 +150,13 @@ class EmotionModel(pl.LightningModule):
         """
         parser = HyperOptArgumentParser(parents=[parent_parser])
 
-        parser.opt_list('--bs', '--batch_size', default=64, type=int,
-                        options=[32, 128], tunable=True, metavar='N',
-                        help='mini-batch size (default: 256), this is the'
-                        'total batch size of all GPUs on the current node'
-                        'when using Data Parallel or Distributed Data Parallel')
+        parser.opt_list('--bs', default=64, type=int, options=[32, 128], tunable=True,
+                        help='mini-batch size (default: 256), this is the total batch size of all GPUs'
+                        'on the current node when using Data Parallel or Distributed Data Parallel')
         parser.opt_list('--projection_size', default=256, type=int, options=[64, 512], tunable=True)
         parser.opt_list('--n_layers', default=1, type=int, options=[1, 4], tunable=True)
-        parser.opt_range('--lr', '--learning_rate', default=2.0e-5, type=float,
-                         tunable=True, low=1.0e-5, high=5.0e-4, nb_samples=5,
-                         help='initial learning rate', metavar='LR', dest='lr')
+        parser.opt_range('--lr', default=2.0e-5, type=float, tunable=True, low=1.0e-5, high=5.0e-4,
+                         nb_samples=5, help='initial learning rate')
         parser.opt_list('--layerwise_decay', default=0.95, type=float, options=[0.3, 0.8], tunable=True)
         parser.opt_list('--max_seq_len', default=32, type=int, options=[16, 64], tunable=False)
         parser.opt_list('--dropout', default=0.1, type=float, options=[0.1, 0.2], tunable=False)

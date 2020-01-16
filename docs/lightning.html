@@ -84,7 +84,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_args" class="doc_header"><code>get_args</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L177" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_args</code>(<strong><code>model</code></strong>)</p>
+<h4 id="get_args" class="doc_header"><code>get_args</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L174" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_args</code>(<strong><code>model</code></strong>)</p>
 </blockquote>
 <p>returns the HyperOptArgumentParser</p>
 
@@ -178,7 +178,7 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="main" class="doc_header"><code>main</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L206" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>main</code>(<strong><code>hparams</code></strong>, <strong><code>gpus</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="main" class="doc_header"><code>main</code><a href="https://github.com/juliusberner/emotion_transformer/tree/master/emotion_transformer/lightning.py#L203" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>main</code>(<strong><code>hparams</code></strong>, <strong><code>gpus</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Trains the Lightning model as specified in <code>hparams</code></p>
 
@@ -216,10 +216,10 @@ summary: "construction of the PyTorch Lightning module and the hyperparameter se
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Epoch 1:  50%|█████     | 1/2 [00:10&lt;00:10, 10.44s/batch, batch_nb=0, loss=2.089, v_nb=2]
+<pre>Epoch 1:  50%|█████     | 1/2 [00:15&lt;00:15, 15.77s/batch, batch_nb=0, loss=2.072, v_nb=3]
 Validating:   0%|          | 0/1 [00:00&lt;?, ?batch/s]
-Epoch 1: 100%|██████████| 2/2 [00:13&lt;00:00,  8.32s/batch, batch_nb=0, f1_score=0.105, fn=8, fp=60, loss=2.089, precision=0.0625, recall=0.333, tp=4, v_nb=2, val_acc=0.0625, val_loss=2.06]
-Epoch 1: 100%|██████████| 2/2 [00:15&lt;00:00,  7.69s/batch, batch_nb=0, f1_score=0.105, fn=8, fp=60, loss=2.089, precision=0.0625, recall=0.333, tp=4, v_nb=2, val_acc=0.0625, val_loss=2.06]
+Epoch 1: 100%|██████████| 2/2 [00:22&lt;00:00, 13.02s/batch, batch_nb=0, f1_score=nan, fn=7, fp=0, loss=2.072, precision=nan, recall=0, tp=0, v_nb=3, val_acc=0.891, val_loss=1.94]
+Epoch 1: 100%|██████████| 2/2 [00:23&lt;00:00, 11.87s/batch, batch_nb=0, f1_score=nan, fn=7, fp=0, loss=2.072, precision=nan, recall=0, tp=0, v_nb=3, val_acc=0.891, val_loss=1.94]
 </pre>
 </div>
 </div>
