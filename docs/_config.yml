@@ -61,3 +61,4 @@ sidebars:
 permalink: pretty
 
 theme: jekyll-theme-cayman
+baseurl: /emotion_transformer/

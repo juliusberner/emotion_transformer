@@ -18,6 +18,8 @@ modules = ["dataloader.py",
            "model.py",
            "lightning.py"]
 
+doc_url = "https://juliusberner.github.io/emotion_transformer/"
+
 git_url = "https://github.com/juliusberner/emotion_transformer/tree/master/"
 
 def custom_doc_links(name): return None
